@@ -12,7 +12,7 @@
 
 <p>
   <strong>Phone:</strong>
-  <%= @restaurant.phone %>
+  <%= @restaurant.phone_number %>
 </p>
 
 <p>
@@ -20,5 +20,35 @@
   <%= @restaurant.category %>
 </p>
 
+<p>
+  <strong>Reviews:</strong>
+  <% @restaurant.reviews.each do |review| %>
+    <ul>
+      <li>
+        <%= review.rating %> Star | <%= review.content %>
+      </li>
+    </ul>
+  <% end %>
+</p>
+
+<%= simple_form_for([@restaurant, @review]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :content %>
+    <%= f.input :rating %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+<%= link_to 'Back', restaurants_path %> |
+<%= link_to 'Review', new_restaurant_review_path(@restaurant) %>
+
+
